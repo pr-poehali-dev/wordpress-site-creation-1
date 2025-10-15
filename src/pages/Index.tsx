@@ -1,100 +1,194 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import Icon from "@/components/ui/icon";
 import { useState } from "react";
 
 const Index = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    message: ""
-  });
+  const [selectedCity, setSelectedCity] = useState("Ярославль");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  const cities = ["Ярославль", "Кострома", "Иваново"];
 
   const services = [
-    { icon: "Smartphone", title: "Ремонт смартфонов", description: "Замена экранов, батарей, восстановление после воды" },
-    { icon: "Laptop", title: "Ремонт ноутбуков", description: "Чистка, замена комплектующих, восстановление данных" },
-    { icon: "Monitor", title: "Ремонт компьютеров", description: "Диагностика, сборка, модернизация ПК" },
-    { icon: "Tv", title: "Ремонт телевизоров", description: "Замена матриц, блоков питания, настройка" },
-    { icon: "Tablet", title: "Ремонт планшетов", description: "Замена стекла, разъемов, прошивка" },
-    { icon: "Speaker", title: "Аудиотехника", description: "Ремонт колонок, наушников, микрофонов" }
+    {
+      title: "Мобильная техника",
+      icon: "Smartphone",
+      items: [
+        "Ремонт смартфонов",
+        "Замена экранов",
+        "Замена аккумуляторов",
+        "Восстановление после воды",
+        "Замена разъемов",
+        "Ремонт кнопок"
+      ]
+    },
+    {
+      title: "Компьютеры и ноутбуки",
+      icon: "Laptop",
+      items: [
+        "Ремонт ноутбуков",
+        "Ремонт компьютеров",
+        "Чистка от пыли",
+        "Замена термопасты",
+        "Установка SSD",
+        "Восстановление данных"
+      ]
+    },
+    {
+      title: "Бытовая техника",
+      icon: "Home",
+      items: [
+        "Ремонт телевизоров",
+        "Ремонт холодильников",
+        "Ремонт стиральных машин",
+        "Ремонт микроволновок",
+        "Ремонт пылесосов",
+        "Ремонт утюгов"
+      ]
+    },
+    {
+      title: "Цифровая техника",
+      icon: "Camera",
+      items: [
+        "Ремонт фотоаппаратов",
+        "Ремонт видеокамер",
+        "Ремонт планшетов",
+        "Ремонт электронных книг",
+        "Ремонт навигаторов",
+        "Ремонт умных часов"
+      ]
+    },
+    {
+      title: "Электроинструмент",
+      icon: "Drill",
+      items: [
+        "Ремонт дрелей",
+        "Ремонт шуруповертов",
+        "Ремонт перфораторов",
+        "Ремонт болгарок",
+        "Ремонт лобзиков",
+        "Ремонт триммеров"
+      ]
+    },
+    {
+      title: "Аудиотехника",
+      icon: "Speaker",
+      items: [
+        "Ремонт колонок",
+        "Ремонт наушников",
+        "Ремонт музыкальных центров",
+        "Ремонт усилителей",
+        "Ремонт микрофонов",
+        "Ремонт DJ-оборудования"
+      ]
+    }
   ];
 
   const advantages = [
-    { icon: "Clock", title: "Быстрый ремонт", description: "Большинство работ за 1-2 часа" },
-    { icon: "Shield", title: "Гарантия качества", description: "До 12 месяцев на все виды работ" },
-    { icon: "Wrench", title: "Опытные мастера", description: "Более 10 лет на рынке" },
-    { icon: "BadgeCheck", title: "Оригинальные запчасти", description: "Только проверенные комплектующие" }
+    {
+      icon: "Clock",
+      title: "Быстрый ремонт",
+      description: "Экспресс-ремонт за 30 минут"
+    },
+    {
+      icon: "BadgeCheck",
+      title: "Гарантия качества",
+      description: "До 12 месяцев гарантии"
+    },
+    {
+      icon: "Users",
+      title: "Опыт с 2010 года",
+      description: "Более 50 000 ремонтов"
+    },
+    {
+      icon: "Wrench",
+      title: "Все виды ремонта",
+      description: "От замены экрана до восстановления платы"
+    }
   ];
 
-  const portfolio = [
-    { title: "iPhone 12 Pro", description: "Замена дисплея и батареи", image: "https://images.unsplash.com/photo-1592286927505-2fd11654c922?w=400&h=300&fit=crop" },
-    { title: "MacBook Pro", description: "Чистка системы охлаждения", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop" },
-    { title: "Samsung TV", description: "Замена блока питания", image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=300&fit=crop" }
-  ];
-
-  const reviews = [
-    { name: "Алексей М.", rating: 5, text: "Быстро починили мой iPhone! Качество работы на высоте, рекомендую!" },
-    { name: "Мария К.", rating: 5, text: "Отличный сервис! Восстановили ноутбук после залития. Спасибо большое!" },
-    { name: "Дмитрий В.", rating: 5, text: "Профессионалы своего дела. Ремонт телевизора выполнен качественно и в срок." }
-  ];
-
-  const pricing = [
-    { service: "Диагностика", price: "Бесплатно" },
-    { service: "Замена экрана смартфона", price: "от 2500₽" },
-    { service: "Замена батареи", price: "от 1500₽" },
-    { service: "Чистка ноутбука", price: "от 1200₽" },
-    { service: "Ремонт разъема зарядки", price: "от 1000₽" },
-    { service: "Восстановление после воды", price: "от 2000₽" }
-  ];
+  const cityContacts = {
+    "Ярославль": {
+      addresses: [
+        "ул. Свободы, д. 46",
+        "пр-т Ленина, д. 28"
+      ],
+      phone: "+7 (4852) 67-89-00",
+      schedule: "Пн-Пт: 9:00-20:00, Сб-Вс: 10:00-18:00"
+    },
+    "Кострома": {
+      addresses: [
+        "ул. Советская, д. 23"
+      ],
+      phone: "+7 (4942) 45-67-89",
+      schedule: "Пн-Пт: 9:00-19:00, Сб: 10:00-17:00"
+    },
+    "Иваново": {
+      addresses: [
+        "пр-т Ленина, д. 65"
+      ],
+      phone: "+7 (4932) 34-56-78",
+      schedule: "Пн-Пт: 9:00-19:00, Сб: 10:00-17:00"
+    }
+  };
 
   return (
     <div className="min-h-screen">
-      <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
-        <nav className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Icon name="Wrench" size={28} className="text-primary" />
-              <span className="text-xl font-bold text-primary">ТехноСервис</span>
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <Icon name="Wrench" size={28} className="text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-primary">ВИРТ</h1>
+                <p className="text-xs text-muted-foreground">Сервисный центр</p>
+              </div>
             </div>
+
             <div className="hidden md:flex items-center gap-6">
-              <button onClick={() => scrollToSection("hero")} className="hover:text-primary transition-colors">Главная</button>
-              <button onClick={() => scrollToSection("about")} className="hover:text-primary transition-colors">О компании</button>
-              <button onClick={() => scrollToSection("services")} className="hover:text-primary transition-colors">Услуги</button>
-              <button onClick={() => scrollToSection("advantages")} className="hover:text-primary transition-colors">Преимущества</button>
-              <button onClick={() => scrollToSection("portfolio")} className="hover:text-primary transition-colors">Портфолио</button>
-              <button onClick={() => scrollToSection("reviews")} className="hover:text-primary transition-colors">Отзывы</button>
-              <button onClick={() => scrollToSection("pricing")} className="hover:text-primary transition-colors">Прайс</button>
-              <button onClick={() => scrollToSection("contacts")} className="hover:text-primary transition-colors">Контакты</button>
+              <div className="flex gap-2">
+                {cities.map((city) => (
+                  <button
+                    key={city}
+                    onClick={() => setSelectedCity(city)}
+                    className={`px-4 py-2 rounded-lg transition-all ${
+                      selectedCity === city
+                        ? "bg-primary text-white"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    }`}
+                  >
+                    {city}
+                  </button>
+                ))}
+              </div>
             </div>
-            <Button onClick={() => scrollToSection("contacts")}>Заказать звонок</Button>
+
+            <div className="flex flex-col items-end">
+              <a href={`tel:${cityContacts[selectedCity as keyof typeof cityContacts].phone}`} className="text-2xl font-bold text-primary">
+                {cityContacts[selectedCity as keyof typeof cityContacts].phone}
+              </a>
+              <span className="text-xs text-muted-foreground">Бесплатная консультация</span>
+            </div>
           </div>
-        </nav>
+        </div>
       </header>
 
-      <section id="hero" className="pt-32 pb-20 bg-gradient-to-br from-primary/10 to-secondary">
+      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h1 className="text-5xl font-bold mb-6">Профессиональный ремонт бытовой электроники</h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Быстро, качественно, с гарантией. Более 10 лет опыта работы
+          <div className="max-w-3xl">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Профессиональный ремонт техники в {selectedCity}
+            </h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Быстро, качественно, с гарантией. Бесплатная диагностика за 15 минут
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" onClick={() => scrollToSection("contacts")}>
-                Заказать ремонт
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" variant="secondary" className="font-semibold">
+                <Icon name="Phone" className="mr-2" />
+                Заказать звонок
               </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollToSection("pricing")}>
+              <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white">
                 Узнать цены
               </Button>
             </div>
@@ -102,91 +196,46 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-white">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">О компании</h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              ТехноСервис — ведущий сервисный центр по ремонту бытовой электроники с 2013 года. 
-              Мы специализируемся на ремонте смартфонов, ноутбуков, компьютеров и другой техники.
-            </p>
-            <p className="text-lg text-muted-foreground">
-              Наша команда состоит из сертифицированных специалистов с многолетним опытом. 
-              Мы используем только оригинальные запчасти и современное оборудование для диагностики и ремонта.
-            </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {advantages.map((advantage, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Icon name={advantage.icon} size={32} className="text-primary" />
+                </div>
+                <h3 className="font-bold mb-2">{advantage.title}</h3>
+                <p className="text-sm text-muted-foreground">{advantage.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-secondary/30">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Наши услуги</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-xl transition-shadow border-2 hover:border-primary">
                 <CardContent className="p-6">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon name={service.icon} size={32} className="text-primary" />
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                      <Icon name={service.icon} size={28} className="text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground">{service.description}</p>
+                    <h3 className="text-xl font-bold">{service.title}</h3>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="advantages" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Наши преимущества</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {advantages.map((advantage, index) => (
-              <div key={index} className="text-center">
-                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Icon name={advantage.icon} size={40} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{advantage.title}</h3>
-                <p className="text-muted-foreground">{advantage.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="portfolio" className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Портфолио работ</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {portfolio.map((item, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="reviews" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Отзывы клиентов</h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {reviews.map((review, index) => (
-              <Card key={index}>
-                <CardContent className="p-6">
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" size={20} className="text-yellow-500 fill-yellow-500" />
+                  <ul className="space-y-2">
+                    {service.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm">
+                        <Icon name="Check" size={16} className="text-primary mt-1 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
                     ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4">{review.text}</p>
-                  <p className="font-semibold">{review.name}</p>
+                  </ul>
+                  <Button className="w-full mt-4" variant="outline">
+                    Заказать ремонт
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -194,118 +243,168 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="pricing" className="py-20 bg-secondary/30">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Прайс-лист</h2>
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                {pricing.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center py-3 border-b last:border-b-0">
-                    <span className="text-lg">{item.service}</span>
-                    <span className="text-lg font-semibold text-primary">{item.price}</span>
+          <h2 className="text-4xl font-bold text-center mb-4">Как мы работаем</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Простой и прозрачный процесс ремонта
+          </p>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { icon: "Phone", title: "Звонок", description: "Вы звоните или оставляете заявку" },
+              { icon: "Search", title: "Диагностика", description: "Бесплатная проверка за 15 минут" },
+              { icon: "Wrench", title: "Ремонт", description: "Качественное устранение неисправности" },
+              { icon: "CheckCircle", title: "Выдача", description: "Гарантия до 12 месяцев" }
+            ].map((step, index) => (
+              <div key={index} className="relative">
+                <div className="bg-white p-6 rounded-lg text-center">
+                  <div className="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                    {index + 1}
                   </div>
-                ))}
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Icon name={step.icon} size={24} className="text-primary" />
+                  </div>
+                  <h3 className="font-bold mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.description}</p>
+                </div>
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                    <Icon name="ChevronRight" size={24} className="text-primary" />
+                  </div>
+                )}
               </div>
-              <p className="text-sm text-muted-foreground mt-6 text-center">
-                * Точная стоимость определяется после диагностики
-              </p>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="contacts" className="py-20 bg-white">
+      <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Контакты</h2>
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">Свяжитесь с нами</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="MapPin" size={24} className="text-primary mt-1" />
-                  <div>
-                    <p className="font-semibold">Адрес:</p>
-                    <p className="text-muted-foreground">г. Москва, ул. Примерная, д. 123</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="Phone" size={24} className="text-primary mt-1" />
-                  <div>
-                    <p className="font-semibold">Телефон:</p>
-                    <p className="text-muted-foreground">+7 (999) 123-45-67</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="Mail" size={24} className="text-primary mt-1" />
-                  <div>
-                    <p className="font-semibold">Email:</p>
-                    <p className="text-muted-foreground">info@technoservice.ru</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="Clock" size={24} className="text-primary mt-1" />
-                  <div>
-                    <p className="font-semibold">Режим работы:</p>
-                    <p className="text-muted-foreground">Пн-Пт: 9:00 - 20:00</p>
-                    <p className="text-muted-foreground">Сб-Вс: 10:00 - 18:00</p>
-                  </div>
-                </div>
-              </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-6">Нужна консультация?</h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Оставьте заявку, и мы перезвоним в течение 5 минут
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <input
+                type="tel"
+                placeholder="Ваш телефон"
+                className="px-6 py-4 rounded-lg text-gray-900 text-lg w-full sm:w-80"
+              />
+              <Button size="lg" variant="secondary" className="font-semibold text-lg px-8">
+                Заказать звонок
+              </Button>
             </div>
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">Заказать звонок</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Input
-                    placeholder="Ваше имя"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
+            <p className="text-sm mt-4 text-blue-100">
+              Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12">Контакты в городе {selectedCity}</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card>
+              <CardContent className="p-8">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="MapPin" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-2">Адреса:</h3>
+                      {cityContacts[selectedCity as keyof typeof cityContacts].addresses.map((addr, idx) => (
+                        <p key={idx} className="text-muted-foreground">{addr}</p>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="Phone" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-2">Телефон:</h3>
+                      <a href={`tel:${cityContacts[selectedCity as keyof typeof cityContacts].phone}`} className="text-xl font-bold text-primary">
+                        {cityContacts[selectedCity as keyof typeof cityContacts].phone}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="Clock" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-2">График работы:</h3>
+                      <p className="text-muted-foreground">{cityContacts[selectedCity as keyof typeof cityContacts].schedule}</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <Input
-                    placeholder="Телефон"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <Textarea
-                    placeholder="Опишите проблему"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={4}
-                  />
-                </div>
-                <Button type="submit" className="w-full">
-                  Отправить заявку
-                </Button>
-              </form>
+              </CardContent>
+            </Card>
+
+            <div className="bg-gray-200 rounded-lg overflow-hidden h-[400px] flex items-center justify-center">
+              <div className="text-center">
+                <Icon name="Map" size={48} className="text-gray-400 mx-auto mb-2" />
+                <p className="text-gray-500">Карта</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-primary text-primary-foreground py-8">
+      <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Icon name="Wrench" size={24} />
-              <span className="font-bold">ТехноСервис</span>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                  <Icon name="Wrench" size={24} className="text-white" />
+                </div>
+                <span className="text-xl font-bold">ВИРТ</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Сервисный центр по ремонту техники в Ярославле, Костроме и Иваново
+              </p>
             </div>
-            <p className="text-sm">© 2024 ТехноСервис. Все права защищены.</p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:opacity-80 transition-opacity">
-                <Icon name="Phone" size={20} />
-              </a>
-              <a href="#" className="hover:opacity-80 transition-opacity">
-                <Icon name="Mail" size={20} />
-              </a>
+
+            <div>
+              <h3 className="font-bold mb-4">Услуги</h3>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors">Ремонт смартфонов</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Ремонт ноутбуков</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Ремонт бытовой техники</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Ремонт электроинструмента</a></li>
+              </ul>
             </div>
+
+            <div>
+              <h3 className="font-bold mb-4">Города</h3>
+              <ul className="space-y-2 text-sm text-gray-400">
+                {cities.map((city) => (
+                  <li key={city}>
+                    <button onClick={() => setSelectedCity(city)} className="hover:text-white transition-colors">
+                      {city}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold mb-4">Контакты</h3>
+              <div className="space-y-3 text-sm">
+                <a href={`tel:${cityContacts[selectedCity as keyof typeof cityContacts].phone}`} className="block text-xl font-bold text-primary">
+                  {cityContacts[selectedCity as keyof typeof cityContacts].phone}
+                </a>
+                <p className="text-gray-400">{cityContacts[selectedCity as keyof typeof cityContacts].schedule}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+            <p>© 2024 Сервисный центр ВИРТ. Все права защищены.</p>
           </div>
         </div>
       </footer>
